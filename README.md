@@ -6,7 +6,7 @@ Represents the business as best as you can so it is easy code a story using the 
 Build libraries that can be used by a Client!  
 Provide a Client that shows a possible story!  
 
-## What so far
+## Once upon a time...
 In the *Magical Realm* new missions start every day.  
 *Captains* go all over the realm to find *Warriors* and *Wizards* to join their *squads*.  
 *Captains* are free to organise their squad as they like with a mix of Warriors and Wizards up to 5 in total.  
