@@ -8,7 +8,7 @@ Provide a Client that shows a possible story!
 
 ## Once upon a time...
 In the *Magical Realm* new missions start every day.  
-*Captains* go all over the realm to find *Warriors* and *Wizards* to join their *squads*.  
+*Captains* go all over the realm to find and hire *Warriors* and *Wizards* to join their *squads*.  
 *Captains* are free to organise their squad as they like with a mix of Warriors and Wizards up to 5 in total.  
 Once the *squad* is ready a *Captain* can sign off a *mission* in the *bullettin board* located in the *tarvern*  
 Once signed off a *squad* and its *Captain* begins its *mission*, when the *mission* is completed the *Captain* earn *10gp*  
