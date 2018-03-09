@@ -1,6 +1,7 @@
 # HRSaga
 Play with DDD in this amazing, magical domain!  
 Let the domain expert, the wonderful *Overlord*, lead you in a fantasy world full of complexity and increasing pain!  
+Have fun drawing the *Map of the *Realm* with all its *domains*, location and creatures!
 
 Represents the business as best as you can so it is easy code a story using the concepts described time to time.  
 Build libraries that can be used by a Client!  
