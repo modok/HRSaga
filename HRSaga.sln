@@ -1,7 +1,7 @@
 
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{9344BDBB-3E7F-41FC-A0DD-8665D75EE146}") = "HRSaga", "HRSaga.csproj", "{05A187CA-FDE5-41D1-B8DB-C93F7E23603C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HRSaga", "HRSaga.csproj", "{05A187CA-FDE5-41D1-B8DB-C93F7E23603C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

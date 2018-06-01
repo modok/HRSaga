@@ -3,7 +3,6 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp2.0</TargetFramework>
-    <BaseDirectory>..</BaseDirectory>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -25,24 +24,9 @@
     <Folder Include="..\Entities\Characters\" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\Context\Free\Captain.cs" />
-    <Compile Include="..\Context\Mission\Captain.cs" />
-    <Compile Include="..\Program.cs" Condition=" '$(EnableDefaultCompileItems)' == 'true' " />
-    <Compile Include="..\test.cs" Condition=" '$(EnableDefaultCompileItems)' == 'true' " />
-    <Compile Include="..\test1.cs" Condition=" '$(EnableDefaultCompileItems)' == 'true' " />
-    <Compile Include="..\Context\Tavern\Captain.cs" />
-    <Compile Include="..\Entities\Characters\CaptainGeneric.cs" Condition=" '$(EnableDefaultCompileItems)' == 'true' " />
-    <Compile Include="..\Entities\Characters\Character.cs" Condition=" '$(EnableDefaultCompileItems)' == 'true' " />
-    <Compile Include="..\Entities\Characters\Warrior.cs" Condition=" '$(EnableDefaultCompileItems)' == 'true' " />
-    <Compile Include="..\Entities\Characters\Wizard.cs" Condition=" '$(EnableDefaultCompileItems)' == 'true' " />
-    <Compile Include="..\Entities\Tavern.cs" />
-    <Compile Include="..\Entities\MissionGeneric.cs" />
-    <Compile Include="..\Entities\MissionAssiged.cs" />
-    <Compile Include="..\Entities\MissionAvailable.cs" />
+    <None Include="..\.gitignore" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\.gitignore" />
-    <None Include="..\LICENSE" />
-    <None Include="..\README.md" />
+    <Compile Remove="Context\Captain.cs" />
   </ItemGroup>
 </Project>
