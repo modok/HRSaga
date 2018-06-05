@@ -1,6 +1,6 @@
-using System;
+﻿using System;
 
-namespace HRSaga.Entity.Characters
+namespace HRSaga.ValueObjects
 {
     public class Warrior : Character
     {

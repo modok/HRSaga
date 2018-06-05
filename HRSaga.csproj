@@ -22,11 +22,16 @@
     <Folder Include="..\Context\" />
     <Folder Include="..\Entities\" />
     <Folder Include="..\Entities\Characters\" />
+    <Folder Include="ValueObjects\" />
+    <Folder Include="Context\OverTheRealm\Entities\" />
+    <Folder Include="Context\InTheTavern\Entities\" />
+    <Folder Include="Context\InMission\Entities\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\.gitignore" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Context\Captain.cs" />
+    <Compile Remove="Entities\Characters\CaptainGeneric.cs" />
   </ItemGroup>
 </Project>
