@@ -7,7 +7,7 @@ namespace HRSaga.Context.OverTheRealm.Entities
 {
     public class Captain : CaptainBase
     {
-        public Captain(): base(new Guid(), new List<Character>(), 0)
+        public Captain(): base(Guid.NewGuid(), new List<Character>(), 0)
         {
             
         }
@@ -54,12 +54,6 @@ namespace HRSaga.Context.OverTheRealm.Entities
             return new InTheTavern.Entities.Captain(this,tavern);                 
             
         }
-
-
-
-
-
-
 
 
     }

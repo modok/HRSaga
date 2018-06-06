@@ -10,8 +10,8 @@ namespace HRSaga
     {
         static void Main(string[] args)
         {
-
             Context.OverTheRealm.Entities.Captain captainOverTheRealm = new Context.OverTheRealm.Entities.Captain();
+
             captainOverTheRealm.Hire(new Wizard());
             captainOverTheRealm.Hire(new Warrior());
             captainOverTheRealm.Hire(new Wizard());
@@ -19,6 +19,7 @@ namespace HRSaga
             captainOverTheRealm.Hire(new Wizard());
 
             Context.InTheTavern.Entities.Captain captainInTavern =  captainOverTheRealm.goToTavern(new Tavern());
+
             List<Mission> missionOntheBoard = captainInTavern.LookTheMissionOnTavernBoard();
             while(missionOntheBoard.Count == 0){
                 Console.WriteLine("No Mission");
@@ -28,6 +29,7 @@ namespace HRSaga
                 missionOntheBoard = captainInTavern.LookTheMissionOnTavernBoard();
             }
             Context.InMission.Entities.Captain captainInMission = captainInTavern.acceptMission(missionOntheBoard[0]);
+
             captainOverTheRealm = captainInMission.MissionCompleted();
 
             Console.WriteLine("Captain is ready for another mission!");

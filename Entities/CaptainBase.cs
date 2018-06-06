@@ -31,10 +31,15 @@ namespace HRSaga.Entities
             _id = id;
             _squad = squad;
             _gold = gold;
+            Console.WriteLine("Captain id {0}", getId());
         }
 
         public int GetGold(){
             return _gold;
+        }
+
+        public Guid getId(){
+            return _id;
         }
     }
 
