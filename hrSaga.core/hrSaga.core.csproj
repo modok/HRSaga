@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="infra\" />
+    <Folder Include="roamingContext\" />
+    <Folder Include="roamingContext\commands\" />
+    <Folder Include="roamingContext\entities\" />
+    <Folder Include="worldContext\" />
+    <Folder Include="worldContext\commands\" />
+    <Folder Include="worldContext\entities\" />
+    <Folder Include="tavernContext\" />
+    <Folder Include="tavernContext\commands\" />
+    <Folder Include="tavernContext\entities\" />
+    <Folder Include="worldContext\enums\" />
+    <Folder Include="worldContext\events\" />
+    <Folder Include="roamingContext\events\" />
+    <Folder Include="tavernContext\events\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
+  </ItemGroup>
+</Project>

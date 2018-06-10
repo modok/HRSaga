@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.5.0" />
+    <PackageReference Include="xunit" Version="2.3.1" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.3.1" />
+    <DotNetCliToolReference Include="dotnet-xunit" Version="2.3.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\hrSaga.core\hrSaga.core.csproj" />
+    <ProjectReference Include="..\hrSaga.console\hrSaga.console.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="unit\" />
+    <Folder Include="unit\core\" />
+    <Folder Include="unit\core\infra\" />
+    <Folder Include="unit\console\" />
+    <Folder Include="unit\console\services\" />
+  </ItemGroup>
+
+</Project>
