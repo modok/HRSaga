@@ -16,6 +16,6 @@ Once signed off a *squad* and its *Captain* begins its *mission*, when the *miss
 
 Things worked well so far, but a new *Overlord* is ruling the *Magical Realm* and he already anticipated that things are going to change
 
-
 ### Month 1 
-...coming soon...
+The new *Overlord* of *Magical Realm* for the incoming year ruled that all the Captains in hiring Warriors and Wizards should pass for the *HR fairies* that are the only ones can authorise a hiring.
+*HR fairies* evaluate each *Warrior* and *Wizard* resume and if they are at least a level 1, they allow *Warriors* and *Wizards* to join a *Captain*' *squad*.
