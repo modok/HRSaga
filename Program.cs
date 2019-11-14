@@ -1,41 +1,100 @@
 ﻿using System;
-using Microsoft.Extensions.DependencyInjection;
-using HRSaga.ValueObjects;
-using HRSaga.Entities;
 using System.Collections.Generic;
+using HRSaga.Context.Shared;
+using HRSaga.PersistLayer;
 
 namespace HRSaga
 {
     class Program
     {
+        
+        public static void scenario1(){
+            
+            //I'm over the Real to hire a squad
+            Context.OverTheRealm.Captain captainOverTheRealm = new Context.OverTheRealm.Captain();
+            captainOverTheRealm.Hire(new Context.OverTheRealm.Wizard());
+            captainOverTheRealm.Hire(new Context.OverTheRealm.Warrior());
+            captainOverTheRealm.Hire(new Context.OverTheRealm.Wizard());
+            captainOverTheRealm.Hire(new Context.OverTheRealm.Warrior());
+            captainOverTheRealm.Hire(new Context.OverTheRealm.Wizard());
+            
+            //I'm going to the Tavern
+            Context.OverTheRealm.Application appOverTheRealm = new Context.OverTheRealm.Application();   
+            Context.InTheTavern.Captain captainInTheTavern = appOverTheRealm.CaptainGoToTavern(captainOverTheRealm,new Context.OverTheRealm.Tavern());
+
+            //I'm looking at bullettinboard 
+            List<Context.InTheTavern.Mission> missions=captainInTheTavern.getTavern().ShowMissionsInTheBoard();
+            foreach (var mission in captainInTheTavern.getTavern().ShowMissionsInTheBoard())
+            {
+                Console.WriteLine("mission: {0}", mission);
+            }
+            
+            //I'm choosing a mission
+            Context.InTheTavern.Application appInTheTavern = new Context.InTheTavern.Application();   
+            Context.InMission.Captain captainInMission = appInTheTavern.acceptMission(captainInTheTavern,missions[0]);
+            
+            //I'm finisched my mission
+            captainInMission.missionCompleted();
+        }
+        
+        public static void scenario2(){
+            SqlLite db = new SqlLite();
+
+            //Loading an old captain
+            Context.OverTheRealm.Captain captainOverTheRealm = Context.OverTheRealm.CaptainRepository.allCaptains()[0];
+            if(captainOverTheRealm == null){
+                throw new ArgumentNullException();
+            }
+            
+            //I'm going to the Tavern
+            Context.OverTheRealm.Application appOverTheRealm = new Context.OverTheRealm.Application();   
+            Context.InTheTavern.Captain captainInTheTavern = appOverTheRealm.CaptainGoToTavern(captainOverTheRealm,new Context.OverTheRealm.Tavern());
+
+            //I'm looking at bullettinboard 
+            List<Context.InTheTavern.Mission> missions=captainInTheTavern.getTavern().ShowMissionsInTheBoard();
+            foreach (var mission in captainInTheTavern.getTavern().ShowMissionsInTheBoard())
+            {
+                Console.WriteLine("mission: {0}", mission);
+            }
+            
+            //I'm choosing a mission
+            Context.InTheTavern.Application appInTheTavern = new Context.InTheTavern.Application();   
+            Context.InMission.Captain captainInMission = appInTheTavern.acceptMission(captainInTheTavern,missions[0]);
+            
+            //I'm finisched my mission
+            captainInMission.missionCompleted();
+        }
+
+        public static void scenario3(){
+            //load all captains persisted
+             foreach (var item in Context.OverTheRealm.CaptainRepository.allCaptains())
+            {
+                Console.WriteLine("OverTheRealm captain id: {0}", item.getCaptainId().ToString());
+            }
+
+            foreach (var item in Context.InTheTavern.CaptainRepository.allCaptains())
+            {
+                Console.WriteLine("InTheTavern captain id: {0}", item.getCaptainId().ToString());
+            }
+
+            foreach (var item in Context.InMission.CaptainRepository.allCaptains())
+            {
+                Console.WriteLine("InMission captain id: {0}", item.getCaptainId().ToString());
+            }
+
+        }
         static void Main(string[] args)
         {
-            Context.OverTheRealm.Entities.Captain captainOverTheRealm = new Context.OverTheRealm.Entities.Captain();
+            SqlLite db = new SqlLite();
+            db.initializzateCaptainTable(true); //set false if you don't want to delete the db everytime
 
-            captainOverTheRealm.Hire(new Wizard());
-            captainOverTheRealm.Hire(new Warrior());
-            captainOverTheRealm.Hire(new Wizard());
-            captainOverTheRealm.Hire(new Warrior());
-            captainOverTheRealm.Hire(new Wizard());
-
-            Context.InTheTavern.Entities.Captain captainInTavern =  captainOverTheRealm.goToTavern(new Tavern());
-
-            List<Mission> missionOntheBoard = captainInTavern.LookTheMissionOnTavernBoard();
-            while(missionOntheBoard.Count == 0){
-                Console.WriteLine("No Mission");
-                Console.WriteLine("No Mission, change Tavern..");
-                captainOverTheRealm = captainInTavern.exitWithoutMission();
-                captainInTavern = captainOverTheRealm.goToTavern(new Tavern());
-                missionOntheBoard = captainInTavern.LookTheMissionOnTavernBoard();
-            }
-            Context.InMission.Entities.Captain captainInMission = captainInTavern.acceptMission(missionOntheBoard[0]);
-
-            captainOverTheRealm = captainInMission.MissionCompleted();
-
-            Console.WriteLine("Captain is ready for another mission!");
-            Console.WriteLine("The captain has:");
-            Console.WriteLine("The squad is ready: {0}", captainOverTheRealm.SquadIsReady());
-            Console.WriteLine("The captain has {0} gold", captainOverTheRealm.GetGold());
+            scenario1();
+            
+            //or
+            scenario2();
+            
+            //or
+            scenario3();
         }
     }
 }

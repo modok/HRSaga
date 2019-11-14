@@ -1,7 +1,8 @@
-﻿using System;
-namespace HRSaga.ValueObjects
+﻿using HRSaga.Artefacts;
+
+namespace HRSaga.Context.InTheTavern
 {
-    public class Mission
+    public class Mission : ValueObject
     {
         private int reward = 10;
 

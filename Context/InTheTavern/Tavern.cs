@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using HRSaga.Artefacts;
 
-namespace HRSaga.ValueObjects
+namespace HRSaga.Context.InTheTavern
 {
-    public class Tavern
+    public class Tavern : ValueObject
     {
         private List<Mission> bullettinBoard = new List<Mission>();
 
@@ -18,7 +19,8 @@ namespace HRSaga.ValueObjects
             return bullettinBoard;
         }
 
-        public Context.InMission.Entities.Captain assignTheMissionTotheCaptain(Mission mission, Context.InTheTavern.Entities.Captain captain)
+
+       /* public Context.InMission.Entities.Captain assignTheMissionTotheCaptain(Mission mission, Context.InTheTavern.Captain captain)
         {
             if (!bullettinBoard.Remove(mission))
             {
@@ -28,12 +30,12 @@ namespace HRSaga.ValueObjects
 
             return new Context.InMission.Entities.Captain(captain,mission);
 
-        }
+        }*/
 
-        public Context.OverTheRealm.Entities.Captain exit(Context.InTheTavern.Entities.Captain captain)
+        /*public Context.OverTheRealm.Captain exit(Context.InTheTavern.Captain captain)
         {
-            return new Context.OverTheRealm.Entities.Captain(captain);
-        }
+            return new Context.OverTheRealm.Captain(captain);
+        }*/
     }
 
     public class MissionMissing : Exception { }
