@@ -30,17 +30,17 @@ namespace HRSaga.PersistLayer
             _gold = gold;
 
         }
-        public CaptainPersisted(Context.OverTheRealm.Captain captain){
+        /* public CaptainPersisted(Context.InTheTavern.Captain captain){
             _guid=captain.getCaptainId().ToString();
-            _num_warrior=captain.getSquad().numWarriors();
-            _num_wizzard=captain.getSquad().numWizard();
+           // _num_warrior=captain.getSquad().numWarriors();
+           // _num_wizzard=captain.getSquad().numWizard();
             _isInTheTavern=captain.isInTavern();
-        }
+        } */
 
-        public CaptainPersisted(Context.InTheTavern.Captain captain){
-            _guid=captain.getCaptainId().ToString();
-            _isInTheTavern=(captain.getTavern()!= null?true:false);
-            _hasMission=captain.hasMission();
+        public CaptainPersisted(Context.OverTheRealm.Domain.Model.Captain.CaptainId captain){
+           // _guid=captain.getCaptainId().ToString();
+           // _isInTheTavern=(captain.getTavern()!= null?true:false);
+           // _hasMission=captain.hasMission();
         }
         
         public CaptainPersisted(Context.InMission.Captain captain){
@@ -86,7 +86,7 @@ namespace HRSaga.PersistLayer
             }
         }
         
-        public void newCaptain(Context.Shared.CaptainId captainId){
+        public void newCaptain(Context.OverTheRealm.Domain.Model.Captain.CaptainId captainId){
             getSQLiteCommand().CommandText = "INSERT INTO captain(guid) VALUES(@guid)";
             getSQLiteCommand().Prepare();
 
@@ -94,7 +94,7 @@ namespace HRSaga.PersistLayer
             getSQLiteCommand().ExecuteNonQuery();
         }
 
-        public void saveCaptain(Context.OverTheRealm.Captain captain){
+        public void saveCaptain(Context.OverTheRealm.Domain.Model.Captain.CaptainId captain){
             CaptainPersisted captainPersisted = new CaptainPersisted(captain); 
             
             getSQLiteCommand().CommandText = "UPDATE captain SET num_warrior =@num_warrior, num_wizzard=@num_wizzard, isInTheTavern=@isInTheTavern WHERE guid=@guid";
@@ -108,14 +108,14 @@ namespace HRSaga.PersistLayer
         }
 
         public void saveCaptain(Context.InTheTavern.Captain captain){
-            CaptainPersisted captainPersisted = new CaptainPersisted(captain); 
+            //CaptainPersisted captainPersisted = new CaptainPersisted(captain); 
             
             getSQLiteCommand().CommandText = "UPDATE captain SET isInTheTavern=@isInTheTavern, hasMission=@hasMission WHERE guid=@guid";
             getSQLiteCommand().Prepare();
 
-            getSQLiteCommand().Parameters.AddWithValue("@guid", captainPersisted.Guid);
-            getSQLiteCommand().Parameters.AddWithValue("@isInTheTavern", captainPersisted.IsInTheTavern);
-            getSQLiteCommand().Parameters.AddWithValue("@hasMission", captainPersisted.HasMission);
+            //getSQLiteCommand().Parameters.AddWithValue("@guid", captainPersisted.Guid);
+            //getSQLiteCommand().Parameters.AddWithValue("@isInTheTavern", captainPersisted.IsInTheTavern);
+            //getSQLiteCommand().Parameters.AddWithValue("@hasMission", captainPersisted.HasMission);
             getSQLiteCommand().ExecuteNonQuery();
 
         }

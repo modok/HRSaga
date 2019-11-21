@@ -1,10 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp3.0</TargetFramework>
   </PropertyGroup>
-
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <OutputPath>..\bin\Debug\netcoreapp3.0</OutputPath>
   </PropertyGroup>
@@ -17,22 +16,14 @@
     <PackageReference Include="System.Data.SQLite.Core" Version="1.0.112.0" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="..\Context\Tavern\" />
-    <Folder Include="..\Context\Mission\" />
-    <Folder Include="..\Context\Free\" />
-    <Folder Include="..\Context\" />
-    <Folder Include="..\Entities\" />
-    <Folder Include="..\Entities\Characters\" />
-    <Folder Include="ValueObjects\" />
-    <Folder Include="Context\OverTheRealm\Entities\" />
-    <Folder Include="Context\InTheTavern\Entities\" />
-    <Folder Include="Context\InMission\Entities\" />
+    <Folder Include="Context\" />
+    <Folder Include="Artefacts\" />
+    <Folder Include="PersistLayer\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\.gitignore" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Remove="Context\Captain.cs" />
-    <Compile Remove="Entities\Characters\CaptainGeneric.cs" />
+    <Compile Include="Context\" />
+    <Compile Include="Artefacts\" />
+    <Compile Include="PersistLayer\" />
   </ItemGroup>
 </Project>
