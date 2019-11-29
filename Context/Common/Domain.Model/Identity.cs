@@ -18,10 +18,10 @@ namespace HRSaga.Context.Common.Domain.Model
 
     public abstract class Identity : IEquatable<Identity>, IIdentity
     {
-        public Identity()
-        {
-            this.Id = Guid.NewGuid().ToString();
+        public Identity() : this(Guid.NewGuid().ToString()){
+            
         }
+        
 
         public Identity(string id)
         {

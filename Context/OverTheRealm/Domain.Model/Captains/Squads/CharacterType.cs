@@ -1,4 +1,4 @@
-namespace HRSaga.Context.OverTheRealm.Domain.Model.Squads
+namespace HRSaga.Context.OverTheRealm.Domain.Model.Captains.Squads
 {
     public enum CharacterType
     {

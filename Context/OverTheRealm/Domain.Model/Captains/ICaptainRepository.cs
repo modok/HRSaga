@@ -4,7 +4,7 @@ using System.Collections.ObjectModel;
 using HRSaga.Context.Common.Domain.Model;
 using HRSaga.PersistLayer;
 
-namespace HRSaga.Context.OverTheRealm.Domain.Model
+namespace HRSaga.Context.OverTheRealm.Domain.Model.Captains
 {
     public interface ICaptainRepository
     {

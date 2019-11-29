@@ -37,7 +37,7 @@ namespace HRSaga.PersistLayer
             _isInTheTavern=captain.isInTavern();
         } */
 
-        public CaptainPersisted(Context.OverTheRealm.Domain.Model.Captain.CaptainId captain){
+        /*public CaptainPersisted(Context.OverTheRealm.Domain.Model.Captain.CaptainId captain){
            // _guid=captain.getCaptainId().ToString();
            // _isInTheTavern=(captain.getTavern()!= null?true:false);
            // _hasMission=captain.hasMission();
@@ -47,7 +47,7 @@ namespace HRSaga.PersistLayer
             _guid=captain.getCaptainId().ToString();
             _hasMission=(captain.getMission()!= null?true:false);
             _gold = captain.getGold();
-        }
+        }*/
 
         public string Guid { get => _guid; }
         public int Num_warrior { get => _num_warrior; }
@@ -86,7 +86,7 @@ namespace HRSaga.PersistLayer
             }
         }
         
-        public void newCaptain(Context.OverTheRealm.Domain.Model.Captain.CaptainId captainId){
+        /*public void newCaptain(Context.OverTheRealm.Domain.Model.Captain.CaptainId captainId){
             getSQLiteCommand().CommandText = "INSERT INTO captain(guid) VALUES(@guid)";
             getSQLiteCommand().Prepare();
 
@@ -131,7 +131,7 @@ namespace HRSaga.PersistLayer
             getSQLiteCommand().Parameters.AddWithValue("@gold", captainPersisted.Gold);
 
             getSQLiteCommand().ExecuteNonQuery();
-        }
+        }*/
 
         public CaptainPersisted getCaptain(string guid){
             CaptainPersisted captain = null;

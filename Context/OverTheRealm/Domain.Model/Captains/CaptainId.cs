@@ -1,6 +1,6 @@
 using HRSaga.Context.Common.Domain.Model;
 
-namespace HRSaga.Context.OverTheRealm.Domain.Model
+namespace HRSaga.Context.OverTheRealm.Domain.Model.Captains
 {
     public class CaptainId : Identity
     {

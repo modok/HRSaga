@@ -1,22 +1,19 @@
-using HRSaga.Context.OverTheRealm.Domain.Model;
-using HRSaga.Context.OverTheRealm.Domain.Model.Squads;
+using System;
+using HRSaga.Context.OverTheRealm.Domain.Model.Captains;
+using HRSaga.Context.OverTheRealm.Domain.Model.Captains.Squads;
 
 namespace HRSaga.Context.OverTheRealm.Application
 {
-    public class ApplicationOverTheRealmCaptainService
+    public class ApplicationCaptainService
     {
         private CaptainService CaptainService;
-        private ICaptainRepository CaptainRepository;
-        private ISquadRepository SquadRepository;
-        public ApplicationOverTheRealmCaptainService(){
-            this.CaptainRepository = null;
-            this.SquadRepository = null;
-            this.CaptainService = new CaptainService(this.CaptainRepository,this.SquadRepository);
+        public ApplicationCaptainService(){
+            this.CaptainService = new CaptainService(CaptainRepositoryInMemory.Instance);
         }
         
         public CaptainId commandNewCaptain(){
-            Captain captain = this.CaptainService.newCaptain();
-            return captain.CaptainId;
+
+            return this.CaptainService.newCaptain();
         }
 
         public void commandHireWarrior(CaptainId captainId){
@@ -31,6 +28,6 @@ namespace HRSaga.Context.OverTheRealm.Application
             return this.CaptainService.get(captainId);
         }
 
-
     }
+
 }
