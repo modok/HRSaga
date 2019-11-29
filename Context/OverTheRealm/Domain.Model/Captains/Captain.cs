@@ -14,6 +14,11 @@ namespace HRSaga.Context.OverTheRealm.Domain.Model.Captains
             this.Squad = squad;
         }
 
+        public Captain(CaptainId captainId){
+            this.CaptainId=captainId;
+            this.Squad = new Squad(captainId);
+        }
+
         
         public bool Equals(Captain other)
         {

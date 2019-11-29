@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using HRSaga.Context.OverTheRealm.Domain.Model.Captains.Squads;
 
@@ -39,8 +40,8 @@ namespace HRSaga.Context.OverTheRealm.Domain.Model.Captains
 
         public CaptainId GetNextIdentity()
         {
-            this.nextIdentity=this.nextIdentity+1;
-            return (new CaptainId((this.nextIdentity-1).ToString()));
+            
+            return (new CaptainId(Guid.NewGuid().ToString()));
         }
 
         public void Remove(CaptainId captainId)
@@ -85,7 +86,7 @@ namespace HRSaga.Context.OverTheRealm.Domain.Model.Captains
             //Captain2
             CaptainId captainId2 = new CaptainId("2");
             SquadId squadId2 = new SquadId("2");
-            Squad squad2 = new Squad(captainId2,squadId2);
+            Squad squad2 = new Squad(captainId2,squadId2,new List<ICharacter>());
             Captain captain2= new Captain(captainId2,squad2);
 
             this.CaptainsDB.Add(captain1);

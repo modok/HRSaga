@@ -15,15 +15,4 @@
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.1.0" />
     <PackageReference Include="System.Data.SQLite.Core" Version="1.0.112.0" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Context\" />
-    <Folder Include="Artefacts\" />
-    <Folder Include="PersistLayer\" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\.gitignore" />
-    <Compile Include="Context\" />
-    <Compile Include="Artefacts\" />
-    <Compile Include="PersistLayer\" />
-  </ItemGroup>
 </Project>

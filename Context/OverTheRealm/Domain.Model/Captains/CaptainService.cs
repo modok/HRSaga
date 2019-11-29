@@ -13,7 +13,7 @@ namespace HRSaga.Context.OverTheRealm.Domain.Model.Captains
 
         public CaptainId newCaptain(){
             CaptainId captainId = this.CaptainRepository.GetNextIdentity();
-            Captain captain = new Captain(captainId,new Squad(captainId,new SquadId()));
+            Captain captain = new Captain(captainId,new Squad(captainId));
             this.CaptainRepository.Save(captain);
             return captain.CaptainId;
         }

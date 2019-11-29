@@ -13,8 +13,8 @@ namespace HRSaga.Context.OverTheRealm.Domain.Model.Captains.Squads
             this.CaptainId = captainId;
             this.Members = members; 
         }
-        public Squad(CaptainId captainId, SquadId squadId) : base(){  
-            this.SquadId = squadId;
+        public Squad(CaptainId captainId) : base(){  
+            this.SquadId = new SquadId();
             this.CaptainId = captainId;
             this.Members = new List<ICharacter>(); 
         }
