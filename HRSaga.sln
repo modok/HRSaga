@@ -1,7 +1,15 @@
-
+﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HRSaga", "HRSaga.csproj", "{05A187CA-FDE5-41D1-B8DB-C93F7E23603C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Adventure", "Adventure\Adventure.csproj", "{248B9335-7001-412F-B092-75D938A09B7F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdventureTest", "AdventureTest\AdventureTest.csproj", "{D3EFC63F-CA3B-4BC9-BFAB-B1BDDFD6CD79}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CQRSlite", "CQRSlite\CQRSlite.csproj", "{D3BD0703-5D13-49D5-8A8E-AB6ACD9715EE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Console", "Console\Console.csproj", "{611E5DB2-8A07-48C9-B29E-659FF1B27F87}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CQRSWeb", "CQRSWeb\CQRSWeb.csproj", "{D048E909-3519-4267-89D5-9B2F95F96AA8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,6 +19,26 @@ Global
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{05A187CA-FDE5-41D1-B8DB-C93F7E23603C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{05A187CA-FDE5-41D1-B8DB-C93F7E23603C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{248B9335-7001-412F-B092-75D938A09B7F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{248B9335-7001-412F-B092-75D938A09B7F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{248B9335-7001-412F-B092-75D938A09B7F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{248B9335-7001-412F-B092-75D938A09B7F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D3EFC63F-CA3B-4BC9-BFAB-B1BDDFD6CD79}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D3EFC63F-CA3B-4BC9-BFAB-B1BDDFD6CD79}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D3EFC63F-CA3B-4BC9-BFAB-B1BDDFD6CD79}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D3EFC63F-CA3B-4BC9-BFAB-B1BDDFD6CD79}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D3BD0703-5D13-49D5-8A8E-AB6ACD9715EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D3BD0703-5D13-49D5-8A8E-AB6ACD9715EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D3BD0703-5D13-49D5-8A8E-AB6ACD9715EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D3BD0703-5D13-49D5-8A8E-AB6ACD9715EE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{611E5DB2-8A07-48C9-B29E-659FF1B27F87}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{611E5DB2-8A07-48C9-B29E-659FF1B27F87}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{611E5DB2-8A07-48C9-B29E-659FF1B27F87}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{611E5DB2-8A07-48C9-B29E-659FF1B27F87}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D048E909-3519-4267-89D5-9B2F95F96AA8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D048E909-3519-4267-89D5-9B2F95F96AA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D048E909-3519-4267-89D5-9B2F95F96AA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D048E909-3519-4267-89D5-9B2F95F96AA8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		Policies = $0

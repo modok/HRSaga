@@ -1,0 +1,13 @@
+﻿@model CQRSCode.Read.Model.Captains.Dtos.CaptainDto
+@{
+    ViewData["Title"] = "Details";
+}
+<h2>Details:</h2>
+Id: @Model.Id<br />
+num warrior: @Model.warriors<br />
+num wizzard: @Model.wizard<br /><br />
+
+@Html.ActionLink("Hire Wizard","HireWizard", new{Id=Model.Id})<br />
+@Html.ActionLink("Hire Warrior","HireWarrior", new{Id=Model.Id})<br />
+
+<a href="/">Back</a>
