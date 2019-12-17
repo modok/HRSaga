@@ -40,45 +40,45 @@ namespace CQRSlite.Caching
 
         }
 
-        public Task<bool> IsTracked(Guid id)
+        public Task<bool> IsTracked(Identity identity)
         {
 #if NET452
-            return Task.FromResult(_cache.Contains(id.ToString()));
+            return Task.FromResult(_cache.Contains(identity.ToString()));
 #else
-            return Task.FromResult(_cache.TryGetValue(id, out var o) && o != null);
+            return Task.FromResult(_cache.TryGetValue(identity, out var o) && o != null);
 #endif
         }
 
-        public Task Set(Guid id, AggregateRoot aggregate)
+        public Task Set(Identity identity, AggregateRoot aggregate)
         {
 #if NET452
-            _cache.Add(id.ToString(), aggregate, _policyFactory.Invoke());
+            _cache.Add(identity.ToString(), aggregate, _policyFactory.Invoke());
 #else
-            _cache.Set(id, aggregate, _cacheOptions);
-#endif
-            return Task.FromResult(0);
-        }
-
-        public Task<AggregateRoot> Get(Guid id)
-        {
-#if NET452
-            return Task.FromResult((AggregateRoot)_cache.Get(id.ToString()));
-#else
-            return Task.FromResult((AggregateRoot) _cache.Get(id));
-#endif
-        }
-
-        public Task Remove(Guid id)
-        {
-#if NET452
-            _cache.Remove(id.ToString());
-#else
-            _cache.Remove(id);
+            _cache.Set(identity, aggregate, _cacheOptions);
 #endif
             return Task.FromResult(0);
         }
 
-        public void RegisterEvictionCallback(Action<Guid> action)
+        public Task<AggregateRoot> Get(Identity identity)
+        {
+#if NET452
+            return Task.FromResult((AggregateRoot)_cache.Get(identity.ToString()));
+#else
+            return Task.FromResult((AggregateRoot) _cache.Get(identity));
+#endif
+        }
+
+        public Task Remove(Identity identity)
+        {
+#if NET452
+            _cache.Remove(identity.ToString());
+#else
+            _cache.Remove(identity);
+#endif
+            return Task.FromResult(0);
+        }
+
+        public void RegisterEvictionCallback(Action<Identity> action)
         {
 #if NET452
             _policyFactory = () => new CacheItemPolicy
@@ -86,13 +86,13 @@ namespace CQRSlite.Caching
                 SlidingExpiration = TimeSpan.FromMinutes(15),
                 RemovedCallback = x =>
                 {
-                    action.Invoke(Guid.Parse(x.CacheItem.Key));
+                    action.Invoke(Identity.Parse(x.CacheItem.Key));
                 }
             };
 #else
             _cacheOptions.RegisterPostEvictionCallback((key, value, reason, state) =>
             {
-                action.Invoke((Guid) key);
+                action.Invoke((Identity) key);
             });
 #endif
         }

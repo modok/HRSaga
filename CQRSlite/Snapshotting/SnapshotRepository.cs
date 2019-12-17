@@ -40,25 +40,25 @@ namespace CQRSlite.Snapshotting
             return Task.WhenAll(TryMakeSnapshot(aggregate), _repository.Save(aggregate, expectedVersion, cancellationToken));
         }
 
-        public async Task<T> Get<T>(Guid aggregateId, CancellationToken cancellationToken = default) where T : AggregateRoot
+        public async Task<T> Get<T>(Identity aggregateIdentity, CancellationToken cancellationToken = default) where T : AggregateRoot
         {
             var aggregate = AggregateFactory<T>.CreateAggregate();
-            var snapshotVersion = await TryRestoreAggregateFromSnapshot(aggregateId, aggregate, cancellationToken).ConfigureAwait(false);
+            var snapshotVersion = await TryRestoreAggregateFromSnapshot(aggregateIdentity, aggregate, cancellationToken).ConfigureAwait(false);
             if (snapshotVersion == -1)
-                return await _repository.Get<T>(aggregateId, cancellationToken).ConfigureAwait(false);
+                return await _repository.Get<T>(aggregateIdentity, cancellationToken).ConfigureAwait(false);
 
-            var events = (await _eventStore.Get(aggregateId, snapshotVersion, cancellationToken).ConfigureAwait(false))
+            var events = (await _eventStore.Get(aggregateIdentity, snapshotVersion, cancellationToken).ConfigureAwait(false))
                 .Where(desc => desc.Version > snapshotVersion);
             aggregate.LoadFromHistory(events);
 
             return aggregate;
         }
 
-        private async Task<int> TryRestoreAggregateFromSnapshot<T>(Guid id, T aggregate, CancellationToken cancellationToken) where T : AggregateRoot
+        private async Task<int> TryRestoreAggregateFromSnapshot<T>(Identity identity, T aggregate, CancellationToken cancellationToken) where T : AggregateRoot
         {
             if (!_snapshotStrategy.IsSnapshotable(typeof(T)))
                 return -1;
-            var snapshot = await _snapshotStore.Get(id, cancellationToken).ConfigureAwait(false);
+            var snapshot = await _snapshotStore.Get(identity, cancellationToken).ConfigureAwait(false);
             if (snapshot == null)
                 return -1;
             aggregate.Invoke("Restore", snapshot);

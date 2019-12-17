@@ -12,13 +12,13 @@ namespace CQRSlite.Snapshotting
         public T GetSnapshot()
         {
             var snapshot = CreateSnapshot();
-            snapshot.Id = Id;
+            snapshot.Identity = Identity;
             return snapshot;
         }
 
         public void Restore(T snapshot)
         {
-            Id = snapshot.Id;
+            Identity = snapshot.Identity;
             Version = snapshot.Version;
             RestoreFromSnapshot(snapshot);
         }

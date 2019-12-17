@@ -8,29 +8,36 @@ namespace HRSaga.Adventure.Context.OverTheRealm.Domain.Model.Captains
 {
     public class Captain : AggregateRoot
     {
-        private CaptainId CaptainId  { get;  set; }
         private List<ICharacter> Squad { get; set; }
         
-        public Captain(CaptainId captainId){
+        
+        public Captain(CaptainId captainId):base(captainId){
             Console.WriteLine("Aggregato capitano creato");
             AssertionConcern.AssertArgumentNotNull(captainId,"CaptainId null");
-            this.CaptainId = captainId;
-            this.Id=captainId.Id;
-            //?? da capire meglio
-            ApplyChange(new CaptainCreated(this.CaptainId));
+            ApplyChange(new CaptainCreated(CaptainId()));
         }
+
+        public CaptainId CaptainId(){
+            return (CaptainId)Identity;
+        }
+
+        //public void CaptainId(CaptainId captainId){
+        //    this.Id=captainId.Id;
+        //}
+
         public void hire(ICharacter character){
             if(isSquadFull()){
-                throw new TooManyMembersException();
+                ApplyEvent(new CaptainSquadFullFilled(CaptainId(),this.Squad.Count));
+                return;
             }
-            ApplyChange(new CharacterHired(this.CaptainId,character));
+            ApplyChange(new CharacterHired(CaptainId(),character));
         }
         private bool isSquadFull(){
             return (this.Squad.Count == 5);
         }
         private void Apply(CaptainCreated e)
         {
-            this.CaptainId=e.captainId();
+            this.Identity=e.captainId();
             this.Squad = new List<ICharacter>();
         }
         private void Apply(CharacterHired e)

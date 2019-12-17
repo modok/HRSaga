@@ -1,4 +1,5 @@
-﻿using CQRSlite.Messages;
+﻿using CQRSlite.Domain;
+using CQRSlite.Messages;
 using System;
 
 namespace CQRSlite.Events
@@ -8,7 +9,7 @@ namespace CQRSlite.Events
     /// </summary>
     public interface IEvent : IMessage
     {
-        Guid Id { get; set; }
+        Identity Identity { get; set; }
         int Version { get; set; }
         DateTimeOffset TimeStamp { get; set; }
     }

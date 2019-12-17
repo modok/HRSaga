@@ -1,25 +1,23 @@
-
 using System;
 using CQRSlite.Domain;
 using CQRSlite.Events;
 
 namespace HRSaga.Adventure.Context.OverTheRealm.Domain.Model.Captains.Events
 {
-    public class CaptainCreated : IEvent
+    public class CaptainSquadFullFilled : IEvent
     {
-
-        public CaptainCreated(CaptainId captainId)
+        public CaptainSquadFullFilled(CaptainId captainId, int squadSize)
         {
             this.Identity = captainId;
-            System.Console.WriteLine("Event: CaptainCreated");
+            this.SquadSize = squadSize;
         }
+        public CaptainId captainId(){
+            return (CaptainId)(Identity);
+        } 
 
+        public int SquadSize { get; set;}
         public Identity Identity { get; set;}
         public int Version { get; set;}
         public DateTimeOffset TimeStamp { get; set;}
-
-        public CaptainId captainId(){
-            return (CaptainId)Identity;
-        }
     }
 }

@@ -3,11 +3,11 @@
     ViewData["Title"] = "Details";
 }
 <h2>Details:</h2>
-Id: @Model.Id<br />
+Id: @Model.CaptainId<br />
 num warrior: @Model.warriors<br />
 num wizzard: @Model.wizard<br /><br />
 
-@Html.ActionLink("Hire Wizard","HireWizard", new{Id=Model.Id})<br />
-@Html.ActionLink("Hire Warrior","HireWarrior", new{Id=Model.Id})<br />
+@Html.ActionLink("Hire Wizard","HireWizard", new{Id=Model.CaptainId})<br />
+@Html.ActionLink("Hire Warrior","HireWarrior", new{Id=Model.CaptainId})<br />
 
 <a href="/">Back</a>

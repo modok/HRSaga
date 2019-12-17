@@ -12,7 +12,7 @@ namespace CQRSlite.Domain
     public class Session : ISession
     {
         private readonly IRepository _repository;
-        private readonly Dictionary<Guid, AggregateDescriptor> _trackedAggregates;
+        private readonly Dictionary<Identity, AggregateDescriptor> _trackedAggregates;
 
         /// <summary>
         /// Initialize Session
@@ -21,47 +21,47 @@ namespace CQRSlite.Domain
         public Session(IRepository repository)
         {
             _repository = repository ?? throw new ArgumentNullException(nameof(repository));
-            _trackedAggregates = new Dictionary<Guid, AggregateDescriptor>();
+            _trackedAggregates = new Dictionary<Identity, AggregateDescriptor>();
         }
 
         public Task Add<T>(T aggregate, CancellationToken cancellationToken = default) where T : AggregateRoot
         {
-            if (!IsTracked(aggregate.Id))
+            if (!IsTracked(aggregate.Identity))
             {
-                _trackedAggregates.Add(aggregate.Id, new AggregateDescriptor { Aggregate = aggregate, Version = aggregate.Version });
+                _trackedAggregates.Add(aggregate.Identity, new AggregateDescriptor { Aggregate = aggregate, Version = aggregate.Version });
             }
-            else if (_trackedAggregates[aggregate.Id].Aggregate != aggregate)
+            else if (_trackedAggregates[aggregate.Identity].Aggregate != aggregate)
             {
-                throw new ConcurrencyException(aggregate.Id);
+                throw new ConcurrencyException(aggregate.Identity);
             }
             return Task.FromResult(0);
         }
 
-        public async Task<T> Get<T>(Guid id, int? expectedVersion = null, CancellationToken cancellationToken = default) where T : AggregateRoot
+        public async Task<T> Get<T>(Identity identity, int? expectedVersion = null, CancellationToken cancellationToken = default) where T : AggregateRoot
         {
-            if (IsTracked(id))
+            if (IsTracked(identity))
             {
-                var trackedAggregate = (T)_trackedAggregates[id].Aggregate;
+                var trackedAggregate = (T)_trackedAggregates[identity].Aggregate;
                 if (expectedVersion != null && trackedAggregate.Version != expectedVersion)
                 {
-                    throw new ConcurrencyException(trackedAggregate.Id);
+                    throw new ConcurrencyException(trackedAggregate.Identity);
                 }
                 return trackedAggregate;
             }
 
-            var aggregate = await _repository.Get<T>(id, cancellationToken).ConfigureAwait(false);
+            var aggregate = await _repository.Get<T>(identity, cancellationToken).ConfigureAwait(false);
             if (expectedVersion != null && aggregate.Version != expectedVersion)
             {
-                throw new ConcurrencyException(id);
+                throw new ConcurrencyException(identity);
             }
             await Add(aggregate, cancellationToken).ConfigureAwait(false);
 
             return aggregate;
         }
 
-        private bool IsTracked(Guid id)
+        private bool IsTracked(Identity identity)
         {
-            return _trackedAggregates.ContainsKey(id);
+            return _trackedAggregates.ContainsKey(identity);
         }
 
         public async Task Commit(CancellationToken cancellationToken = default)

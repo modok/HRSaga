@@ -4,8 +4,8 @@ namespace CQRSlite.Domain.Exception
 {
     public class EventsOutOfOrderException : System.Exception
     {
-        public EventsOutOfOrderException(Guid id)
-            : base($"Eventstore gave events for aggregate {id} out of order")
+        public EventsOutOfOrderException(Identity identity)
+            : base($"Eventstore gave events for aggregate {identity} out of order")
         { }
     }
 }

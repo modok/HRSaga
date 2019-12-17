@@ -1,4 +1,5 @@
 using System;
+using CQRSlite.Domain;
 using CQRSlite.Events;
 
 namespace HRSaga.Adventure.Context.OverTheRealm.Domain.Model.Captains.Events
@@ -7,16 +8,16 @@ namespace HRSaga.Adventure.Context.OverTheRealm.Domain.Model.Captains.Events
     {
         public ICharacter Character { get; private set; }
 
-        public CharacterHired(CaptainId aggregateId, ICharacter character)
+        public CharacterHired(CaptainId captainId, ICharacter character)
         {
-            this.Id = aggregateId.Id;
+            this.Identity = captainId;
             this.Character=character;
         }
         public CaptainId captainId(){
-            return new CaptainId(Id);
+            return (CaptainId)Identity;
         } 
 
-        public Guid Id { get; set;}
+        public Identity Identity { get; set;}
         public int Version { get; set;}
         public DateTimeOffset TimeStamp { get; set;}
     }

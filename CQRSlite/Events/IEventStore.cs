@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using CQRSlite.Domain;
 
 namespace CQRSlite.Events
 {
@@ -21,10 +22,10 @@ namespace CQRSlite.Events
         /// <summary>
         /// Gets events for an aggregate
         /// </summary>
-        /// <param name="aggregateId">Guid of the aggregate to be retrieved</param>
+        /// <param name="aggregateIdentity">Identidy of the aggregate to be retrieved</param>
         /// <param name="fromVersion">All events after this should be returned. -1 if from start</param>
         /// <param name="cancellationToken">Optional cancellation token</param>
         /// <returns>Task with events for aggregate</returns>
-        Task<IEnumerable<IEvent>> Get(Guid aggregateId, int fromVersion, CancellationToken cancellationToken = default);
+        Task<IEnumerable<IEvent>> Get(Identity aggregateIdentity, int fromVersion, CancellationToken cancellationToken = default);
     }
 }

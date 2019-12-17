@@ -7,6 +7,7 @@ using CQRSCode.ReadModel.Captains.Queries;
 using HRSaga.Adventure.Context.OverTheRealm.Domain.Model.Captains.Commands;
 using HRSaga.Adventure.Context.OverTheRealm.Domain.Model.Captains;
 using Microsoft.AspNetCore.Routing;
+using CQRSlite.Domain;
 
 namespace CQRSWeb.Controllers
 {
@@ -34,18 +35,19 @@ namespace CQRSWeb.Controllers
             return RedirectToAction("Index");
         }
 
-        public async Task<ActionResult> Details(Guid id)
+        public async Task<ActionResult> Details(String id)
         {
-            ViewData.Model = await _queryProcessor.Query(new GetCaptain(id));
+            
+            ViewData.Model = await _queryProcessor.Query(new GetCaptain(new CaptainId(id)));
             return View();
         }
-        public async Task<ActionResult> HireWarrior(Guid id)
+        public async Task<ActionResult> HireWarrior(String id)
         {
             await _commandSender.Send(new HireCharacter(new CaptainId(id),new Warrior()));
             return RedirectToAction("Details",new RouteValueDictionary( 
                 new { controller = "Home", action = "Details", id = id } ));
         }
-        public async Task<ActionResult> HireWizard(Guid id)
+        public async Task<ActionResult> HireWizard(String id)
         {
             await _commandSender.Send(new HireCharacter(new CaptainId(id),new Wizard()));
             return RedirectToAction("Details",new RouteValueDictionary( 

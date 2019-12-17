@@ -8,7 +8,7 @@
     @foreach (var captain in Model)
 {
     <li>
-        @Html.ActionLink("CaptainId: " + captain.Id.ToString(), "Details", new { Id = captain.Id })
+        @Html.ActionLink("CaptainId: " + captain.CaptainId.ToString(), "Details", new { Id = captain.CaptainId })
     </li>
 }
 </ul>

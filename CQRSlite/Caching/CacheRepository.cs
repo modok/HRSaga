@@ -17,10 +17,10 @@ namespace CQRSlite.Caching
         private readonly IEventStore _eventStore;
         private readonly ICache _cache;
 
-        private static readonly ConcurrentDictionary<Guid, SemaphoreSlim> _locks =
-            new ConcurrentDictionary<Guid, SemaphoreSlim>();
+        private static readonly ConcurrentDictionary<Identity, SemaphoreSlim> _locks =
+            new ConcurrentDictionary<Identity, SemaphoreSlim>();
 
-        private static SemaphoreSlim CreateLock(Guid _) => new SemaphoreSlim(1, 1);
+        private static SemaphoreSlim CreateLock(Identity _) => new SemaphoreSlim(1, 1);
 
         /// <summary>
         /// Initialize a new instance of CacheRepository
@@ -40,19 +40,19 @@ namespace CQRSlite.Caching
         public async Task Save<T>(T aggregate, int? expectedVersion = null,
             CancellationToken cancellationToken = default) where T : AggregateRoot
         {
-            var @lock = _locks.GetOrAdd(aggregate.Id, CreateLock);
+            var @lock = _locks.GetOrAdd(aggregate.Identity, CreateLock);
             await @lock.WaitAsync(cancellationToken).ConfigureAwait(false);
             try
             {
-                if (aggregate.Id != default && !await _cache.IsTracked(aggregate.Id).ConfigureAwait(false))
+                if (aggregate.Identity != default && !await _cache.IsTracked(aggregate.Identity).ConfigureAwait(false))
                 {
-                    await _cache.Set(aggregate.Id, aggregate).ConfigureAwait(false);
+                    await _cache.Set(aggregate.Identity, aggregate).ConfigureAwait(false);
                 }
                 await _repository.Save(aggregate, expectedVersion, cancellationToken).ConfigureAwait(false);
             }
             catch (Exception)
             {
-                await _cache.Remove(aggregate.Id).ConfigureAwait(false);
+                await _cache.Remove(aggregate.Identity).ConfigureAwait(false);
                 throw;
             }
             finally
@@ -61,21 +61,21 @@ namespace CQRSlite.Caching
             }
         }
 
-        public async Task<T> Get<T>(Guid aggregateId, CancellationToken cancellationToken = default)
+        public async Task<T> Get<T>(Identity aggregateIdentity, CancellationToken cancellationToken = default)
             where T : AggregateRoot
         {
-            var @lock = _locks.GetOrAdd(aggregateId, CreateLock);
+            var @lock = _locks.GetOrAdd(aggregateIdentity, CreateLock);
             await @lock.WaitAsync(cancellationToken).ConfigureAwait(false);
             try
             {
                 T aggregate;
-                if (await _cache.IsTracked(aggregateId).ConfigureAwait(false))
+                if (await _cache.IsTracked(aggregateIdentity).ConfigureAwait(false))
                 {
-                    aggregate = (T) await _cache.Get(aggregateId).ConfigureAwait(false);
-                    var events = await _eventStore.Get(aggregateId, aggregate.Version, cancellationToken).ConfigureAwait(false);
+                    aggregate = (T) await _cache.Get(aggregateIdentity).ConfigureAwait(false);
+                    var events = await _eventStore.Get(aggregateIdentity, aggregate.Version, cancellationToken).ConfigureAwait(false);
                     if (events.Any() && events.First().Version != aggregate.Version + 1)
                     {
-                        await _cache.Remove(aggregateId).ConfigureAwait(false);
+                        await _cache.Remove(aggregateIdentity).ConfigureAwait(false);
                     }
                     else
                     {
@@ -84,13 +84,13 @@ namespace CQRSlite.Caching
                     }
                 }
 
-                aggregate = await _repository.Get<T>(aggregateId, cancellationToken).ConfigureAwait(false);
-                await _cache.Set(aggregateId, aggregate).ConfigureAwait(false);
+                aggregate = await _repository.Get<T>(aggregateIdentity, cancellationToken).ConfigureAwait(false);
+                await _cache.Set(aggregateIdentity, aggregate).ConfigureAwait(false);
                 return aggregate;
             }
             catch (Exception)
             {
-                await _cache.Remove(aggregateId).ConfigureAwait(false);
+                await _cache.Remove(aggregateIdentity).ConfigureAwait(false);
                 throw;
             }
             finally

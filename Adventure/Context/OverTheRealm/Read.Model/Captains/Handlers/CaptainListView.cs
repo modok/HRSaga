@@ -15,14 +15,15 @@ namespace HRSaga.Adventure.Context.OverTheRealm.Read.Model.Captains.Handlers
     public class CaptainListView : 
         ICancellableEventHandler<CaptainCreated>, 
         ICancellableEventHandler<CharacterHired>,
+        ICancellableEventHandler<CaptainSquadFullFilled>
         ICancellableQueryHandler<GetCaptainList, List<CaptainDto>>,
         ICancellableQueryHandler<GetCaptain,CaptainDto>
     {
         public Task Handle(CaptainCreated message, CancellationToken token = default)
         {
-            CaptainDto captain = new CaptainDto(message.Id);
+            CaptainDto captain = new CaptainDto(new CaptainId(message.Identity));
             InMemoryDatabase.List.Add(captain);
-            InMemoryDatabase.Details.Add(captain.Id,captain);
+            InMemoryDatabase.Details.Add(captain.CaptainId,captain);
             return Task.CompletedTask;
         }
 
@@ -34,7 +35,7 @@ namespace HRSaga.Adventure.Context.OverTheRealm.Read.Model.Captains.Handlers
         public Task Handle(CharacterHired message, CancellationToken token = default)
         {
             //var item = InMemoryDatabase.List.Find(x => x.Id == message.Id);
-            var item = InMemoryDatabase.Details.SingleOrDefault(x => x.Key == message.Id).Value;
+            var item = InMemoryDatabase.Details.SingleOrDefault(x => x.Key.Equals(message.Identity)).Value;
             
             switch (message.Character.CharacterType)
             {
@@ -47,9 +48,16 @@ namespace HRSaga.Adventure.Context.OverTheRealm.Read.Model.Captains.Handlers
             }
             return Task.CompletedTask;
         }
+
+        public Task Handle(CaptainSquadFullFilled message, CancellationToken token = default)
+        {
+            throw new System.NotImplementedException();
+        }
         public Task<CaptainDto> Handle(GetCaptain message, CancellationToken token = default)
         {
-           return Task.FromResult(InMemoryDatabase.Details.SingleOrDefault(x => x.Key == message.Id).Value);
+           return Task.FromResult(InMemoryDatabase.Details.SingleOrDefault(x => x.Key.Equals(message.CaptainId)).Value);
         }
+
+        
     }
 }

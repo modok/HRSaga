@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
+using CQRSlite.Domain;
 
 namespace CQRSlite.Snapshotting
 {
@@ -15,7 +16,7 @@ namespace CQRSlite.Snapshotting
         /// <param name="id">Id of aggregate</param>
         /// <param name="cancellationToken">Cancellation token</param>
         /// <returns>Task with snapshot</returns>
-        Task<Snapshot> Get(Guid id, CancellationToken cancellationToken = default);
+        Task<Snapshot> Get(Identity identity, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Save snapshot to store

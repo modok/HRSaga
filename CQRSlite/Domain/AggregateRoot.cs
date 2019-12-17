@@ -12,9 +12,13 @@ namespace CQRSlite.Domain
     /// </summary>
     public abstract class AggregateRoot
     {
+        public AggregateRoot(){}
+        protected AggregateRoot(Identity identity){
+            this.Identity=identity;
+        }
         private readonly List<IEvent> _changes = new List<IEvent>();
 
-        public Guid Id { get; protected set; }
+        public Identity Identity { get; protected set; }
         public int Version { get; protected set; }
 
         public IEvent[] GetUncommittedChanges()
@@ -37,17 +41,17 @@ namespace CQRSlite.Domain
                 var i = 0;
                 foreach (var e in changes)
                 {
-                    if (e.Id == default && Id == default)
+                    if (e.Identity == default && Identity == default)
                     {
                         throw new AggregateOrEventMissingIdException(GetType(), e.GetType());
                     }
-                    if (e.Id == default)
+                    if (e.Identity == default)
                     {
-                        e.Id = Id;
+                        e.Identity = Identity;
                     }
-                    if (e.Id != Id)
+                    if (e.Identity != Identity)
                     {
-                        throw new EventIdIncorrectException(e.Id, Id);
+                        throw new EventIdIncorrectException(e.Identity, Identity);
                     }
                     i++;
                     e.Version = Version + i;
@@ -71,14 +75,14 @@ namespace CQRSlite.Domain
                 {
                     if (e.Version != Version + 1)
                     {
-                        throw new EventsOutOfOrderException(e.Id);
+                        throw new EventsOutOfOrderException(e.Identity);
                     }
-                    if (e.Id != Id && Id != default)
+                    if (e.Identity != Identity && Identity != default)
                     {
-                        throw new EventIdIncorrectException(e.Id, Id);
+                        throw new EventIdIncorrectException(e.Identity, Identity);
                     } 
                     ApplyEvent(e);
-                    Id = e.Id;
+                    Identity = e.Identity;
                     Version++;
                 }
             }

@@ -92,13 +92,13 @@ namespace HRSaga.Console
                 List<CaptainDto> list = await this.QueryProcessor.Query(new GetCaptainList());
                 foreach (var captain in list)
                 {
-                    System.Console.WriteLine(captain.Id);
+                    System.Console.WriteLine(captain.CaptainId);
                 }
             }
 
-            public async void Get(Guid id){
-                CaptainDto captain = await this.QueryProcessor.Query(new GetCaptain(id));
-                System.Console.WriteLine("id: {0},num war: {1},num wiz: {2},",captain.Id,captain.warriors,captain.wizard);
+            public async void Get(String identity){
+                CaptainDto captain = await this.QueryProcessor.Query(new GetCaptain(new CaptainId(identity)));
+                System.Console.WriteLine("id: {0},num war: {1},num wiz: {2},",captain.CaptainId,captain.warriors,captain.wizard);
             }
 
 

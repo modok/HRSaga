@@ -18,14 +18,14 @@ namespace HRSaga.Adventure.Context.OverTheRealm.Domain.Model.Captains.Handlers
 
         public async Task Handle(CreateCaptain message)
         {
-            var item = new Captain(new CaptainId(message.Id));
+            var item = new Captain((CaptainId)message.Identity);
             await _session.Add(item);
             await _session.Commit();
         }
 
         public async Task Handle(HireCharacter message)
         {
-            var item= await _session.Get<Captain>(message.Id);
+            var item= await _session.Get<Captain>(message.Identity);
             item.hire(message.Character);
             await _session.Commit();
         }

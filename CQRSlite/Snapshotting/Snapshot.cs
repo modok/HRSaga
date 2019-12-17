@@ -1,4 +1,5 @@
 ﻿using System;
+using CQRSlite.Domain;
 
 namespace CQRSlite.Snapshotting
 {
@@ -7,7 +8,7 @@ namespace CQRSlite.Snapshotting
     /// </summary>
     public abstract class Snapshot
     {
-        public Guid Id { get; set; }
+        public Identity Identity { get; set; }
         public int Version { get; set; }
     }
 }
