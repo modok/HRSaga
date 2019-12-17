@@ -53,6 +53,7 @@ namespace HRSaga.Adventure.Context.OverTheRealm.Read.Model.Captains.Handlers
         {
             throw new System.NotImplementedException();
         }
+        
         public Task<CaptainDto> Handle(GetCaptain message, CancellationToken token = default)
         {
            return Task.FromResult(InMemoryDatabase.Details.SingleOrDefault(x => x.Key.Equals(message.CaptainId)).Value);
