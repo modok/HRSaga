@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using CQRSlite.Domain;
 using CQRSlite.Events;
 
-namespace HRSaga.Adventure.Context.OverTheRealm.Domain.Model
+namespace HRSaga.Adventure.Common.InMemory.EventStores
 {
     public class InMemoryEventStore : IEventStore
     {

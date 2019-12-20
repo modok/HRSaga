@@ -1,25 +1,21 @@
 
 using System;
-using CQRSlite.Domain;
-using CQRSlite.Events;
+using HRSaga.Adventure.Common.EventStore.Events;
+using Newtonsoft.Json;
 
 namespace HRSaga.Adventure.Context.OverTheRealm.Domain.Model.Captains.Events
 {
-    public class CaptainCreated : IEvent
+    public class CaptainCreated : EVBaseEvent
     {
 
-        public CaptainCreated(CaptainId captainId)
-        {
-            this.Identity = captainId;
-            System.Console.WriteLine("Event: CaptainCreated");
-        }
+        public CaptainCreated(CaptainId captainId):base("Captain", captainId){}
 
-        public Identity Identity { get; set;}
-        public int Version { get; set;}
-        public DateTimeOffset TimeStamp { get; set;}
+        [JsonConstructor]
+        public CaptainCreated(CaptainId captainId,Guid eventId,String eventType):base(eventId,"Captain", captainId){}
 
         public CaptainId captainId(){
             return (CaptainId)Identity;
         }
+
     }
 }

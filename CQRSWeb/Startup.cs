@@ -10,12 +10,13 @@ using System.Linq;
 using CQRSlite.Messages;
 using CQRSlite.Queries;
 using CQRSlite.Routing;
-using Microsoft.AspNetCore.Http;
 using ISession = CQRSlite.Domain.ISession;
 using Microsoft.Extensions.DependencyInjection;
-using HRSaga.Adventure.Context.OverTheRealm.Domain.Model;
 using HRSaga.Adventure.Context.OverTheRealm.Domain.Model.Captains.Handlers;
 using Microsoft.AspNetCore.Hosting;
+using StackExchange.Redis;
+using HRSaga.Adventure.Common.EventStore.EventStores;
+using HRSaga.Adventure.Common.EventStore.Clients;
 
 namespace CQRSWeb
 {
@@ -24,6 +25,10 @@ namespace CQRSWeb
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var redisConfigOptions = ConfigurationOptions.Parse("127.0.0.1:6379");
+            redisConfigOptions.AbortOnConnectFail = false;
+            services.AddSingleton(new Lazy<IConnectionMultiplexer>(() => ConnectionMultiplexer.Connect(redisConfigOptions)));
+
             services.AddMemoryCache();
 
             //Add Cqrs services
@@ -32,7 +37,8 @@ namespace CQRSWeb
             services.AddSingleton<IEventPublisher>(y => y.GetService<Router>());
             services.AddSingleton<IHandlerRegistrar>(y => y.GetService<Router>());
             services.AddSingleton<IQueryProcessor>(y => y.GetService<Router>());
-            services.AddSingleton<IEventStore, InMemoryEventStore>();
+            //services.AddSingleton<IEventStore, InMemoryEventStore>();
+            services.AddSingleton<IEventStore>(y => new EVEventStore(y.GetService<IEventPublisher>(),new EVClient(),"HRSAGA")); 
             services.AddSingleton<ICache, MemoryCache>();
             services.AddScoped<IRepository>(y => new CacheRepository(new Repository(y.GetService<IEventStore>()), y.GetService<IEventStore>(), y.GetService<ICache>()));
             services.AddScoped<ISession, Session>();

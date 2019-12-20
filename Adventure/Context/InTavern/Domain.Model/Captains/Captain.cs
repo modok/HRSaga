@@ -4,7 +4,7 @@ using HRSaga.Adventure.Context.Common.Domain.Model;
 
 namespace HRSaga.Adventure.Context.InTavern.Domain.Model.Captains
 {
-    public class Captain : Entity, IEquatable<Captain>
+    public class Captain //: Entity, IEquatable<Captain>
     {
         private CaptainId CaptainId  { get;  set; }
         private int SquadSize  { get;  set; }

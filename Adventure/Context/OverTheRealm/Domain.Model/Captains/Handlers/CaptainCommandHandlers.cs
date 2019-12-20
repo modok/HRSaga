@@ -28,6 +28,7 @@ namespace HRSaga.Adventure.Context.OverTheRealm.Domain.Model.Captains.Handlers
             var item= await _session.Get<Captain>(message.Identity);
             item.hire(message.Character);
             await _session.Commit();
+            
         }
     }
 }
