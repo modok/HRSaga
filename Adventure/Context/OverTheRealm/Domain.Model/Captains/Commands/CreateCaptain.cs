@@ -1,17 +1,13 @@
-using System;
-using CQRSlite.Commands;
-using CQRSlite.Domain;
+using EventFlow.Commands;
 
 namespace HRSaga.Adventure.Context.OverTheRealm.Domain.Model.Captains.Commands
 {
-    public class CreateCaptain : ICommand{
+    public class CreateCaptain : Command<Captain, CaptainId>
+    {
 
-        public CreateCaptain(CaptainId captainId){
-            this.Identity=captainId;
+        public CreateCaptain(CaptainId captainId): base(captainId)
+        {
         }
-
-        public Identity Identity { get; set; }
-        public int ExpectedVersion { get; set; }
         
     }
 }

@@ -1,21 +1,13 @@
 
-using System;
-using HRSaga.Adventure.Common.EventStore.Events;
-using Newtonsoft.Json;
+using EventFlow.Aggregates;
 
 namespace HRSaga.Adventure.Context.OverTheRealm.Domain.Model.Captains.Events
 {
-    public class CaptainCreated : EVBaseEvent
+    public class CaptainCreated : AggregateEvent<Captain, CaptainId>
     {
-
-        public CaptainCreated(CaptainId captainId):base("Captain", captainId){}
-
-        [JsonConstructor]
-        public CaptainCreated(CaptainId captainId,Guid eventId,String eventType):base(eventId,"Captain", captainId){}
-
-        public CaptainId captainId(){
-            return (CaptainId)Identity;
+        public string name {get;}
+        public CaptainCreated(string name){
+            this.name = name;
         }
-
     }
 }

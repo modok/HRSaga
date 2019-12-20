@@ -1,17 +1,12 @@
 using System;
-using CQRSlite.Domain;
+using EventFlow.Core;
 
 namespace HRSaga.Adventure.Context.OverTheRealm.Domain.Model.Captains
 {
-    public class CaptainId : Identity
+    public class CaptainId : Identity<CaptainId>
     {
 
-        public CaptainId():base(){}
+        public CaptainId(string value):base(value){}
        
-        public CaptainId(String id):base(id){}
-
-        public CaptainId(Identity identity):base(identity.Id){}
-        
-        
     }
 }

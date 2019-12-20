@@ -1,30 +1,65 @@
-using System;
 using System.Collections.Generic;
-using CQRSlite.Domain;
+using EventFlow.Aggregates;
+using EventFlow.Exceptions;
 using HRSaga.Adventure.Context.Common.Domain.Model;
 using HRSaga.Adventure.Context.OverTheRealm.Domain.Model.Captains.Events;
 using Stateless;
 
 namespace HRSaga.Adventure.Context.OverTheRealm.Domain.Model.Captains
 {
-    public class Captain : AggregateRoot
+    public class Captain : AggregateRoot<Captain, CaptainId>,
+            IEmit<CaptainCreated>,
+            IEmit<WizardHired>,
+            IEmit<WarriorHired>
     {
-            enum State { OverTheRealm, InTavern, InMission }
-            enum Activity { Hire, goToTavern, SubscribeMission, CompleteMission, returnOverTheReal }
-
-        private List<ICharacter> Squad { get; set; }
-        //private StateMachine<State,Activity> StateMachine;
+        private List<ICharacter> _squad { get; set; }
         
         public Captain(CaptainId captainId):base(captainId){
             //stateSetup(State.OverTheRealm);
-            AssertionConcern.AssertArgumentNotNull(captainId,"CaptainId null");
-            ApplyChange(new CaptainCreated(CaptainId()));
+            //AssertionConcern.AssertArgumentNotNull(captainId,"CaptainId null");
+            _squad=new List<ICharacter>();
+            //Emit(new CaptainCreated());
         }
 
-        public CaptainId CaptainId(){
-            return (CaptainId)Identity;
+         
+        public void hire(Warrior warrior){
+            if(isSquadFull()){
+                throw DomainError.With("Squad is full");
+            }
+            Emit(new WarriorHired(warrior));
         }
 
+        public void hire(Wizard wizard){
+            if(isSquadFull()){
+                throw DomainError.With("Squad is full");
+            }
+            Emit(new WizardHired(wizard));
+        }
+        private bool isSquadFull(){
+            return (_squad.Count == 5);
+        }
+
+        void IEmit<CaptainCreated>.Apply(CaptainCreated aggregateEvent)
+        {
+            _squad = new List<ICharacter>();
+        }
+
+        public void Apply(WarriorHired aggregateEvent)
+        {
+            _squad.Add(aggregateEvent.Warrior);
+        }
+
+        public void Apply(WizardHired aggregateEvent)
+        {
+            _squad.Add(aggregateEvent.Wizard);
+        }
+
+
+
+
+        //private StateMachine<State,Activity> StateMachine;
+        //enum State { OverTheRealm, InTavern, InMission }
+        //enum Activity { Hire, goToTavern, SubscribeMission, CompleteMission, returnOverTheReal }
         /* private void stateSetup(State initialState){
             //InitialState
              StateMachine = new StateMachine<State,Activity>(initialState);
@@ -41,27 +76,5 @@ namespace HRSaga.Adventure.Context.OverTheRealm.Domain.Model.Captains
             .Permit(Activity.CompleteMission,State.OverTheRealm);
 
         } */
-
-        //public void CaptainId(CaptainId captainId){
-        //    this.Id=captainId.Id;
-        //}
-
-        public void hire(ICharacter character){
-            if(!isSquadFull()){
-                ApplyChange(new CharacterHired(CaptainId(),character));    
-            }
-        }
-        private bool isSquadFull(){
-            return (this.Squad.Count == 5);
-        }
-        private void Apply(CaptainCreated e)
-        {
-            this.Identity=e.captainId();
-            this.Squad = new List<ICharacter>();
-        }
-        private void Apply(CharacterHired e)
-        {
-            this.Squad.Add(e.Character);
-        }
     }
 }

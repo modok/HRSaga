@@ -2,10 +2,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Adventure\Adventure.csproj" />
-    <ProjectReference Include="..\CQRSlite\CQRSlite.csproj" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="eventflow" Version="0.77.4077" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.1.0" />
     <PackageReference Include="Scrutor" Version="3.1.0" />
     <PackageReference Include="StructureMap.Microsoft.DependencyInjection" Version="2.0.0" />
