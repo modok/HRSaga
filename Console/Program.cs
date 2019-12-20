@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System.Collections.Generic;
+using System.Threading;
 using EventFlow;
 using EventFlow.Extensions;
 using EventFlow.Queries;
@@ -6,10 +7,13 @@ using HRSaga.Adventure.Context.OverTheRealm.Domain.Model.Captains;
 using HRSaga.Adventure.Context.OverTheRealm.Domain.Model.Captains.Commands;
 using HRSaga.Adventure.Context.OverTheRealm.Domain.Model.Captains.Events;
 using HRSaga.Adventure.Context.OverTheRealm.Domain.Model.Captains.Handlers;
+using HRSaga.Adventure.Context.OverTheRealm.Domain.Model.Captains.Queries;
 using HRSaga.Adventure.Context.OverTheRealm.Domain.Model.Captains.ReadModels;
 
 namespace HRSaga.Console
 {
+
+        public class TestQuery : IQuery<IReadOnlyCollection<CaptainReadModel>> { }
 
     class Program
     {
@@ -26,7 +30,9 @@ namespace HRSaga.Console
                 .AddCommandHandlers(typeof(CreateCaptainCommandHandlers))
                 .AddCommandHandlers(typeof(HireWarriorCommandHandlers))
                 .AddCommandHandlers(typeof(HireWizardCommandHandlers))
+                .AddQueryHandlers(typeof(GetAllCaptainsQueryHandler))
                 .UseInMemoryReadStoreFor<CaptainReadModel>()
+                
                 .CreateResolver())
                 {
                 
@@ -57,7 +63,26 @@ namespace HRSaga.Console
                         .ConfigureAwait(false);
                     
                     System.Console.WriteLine($"warriors: {captainReadModel.warriors} wizzards: {captainReadModel.wizards}");
+
+                    // Resolve the command bus and use it to publish a command
+                    await commandBus.PublishAsync(new CreateCaptain(CaptainId.New), CancellationToken.None)
+                        .ConfigureAwait(false);
+
+                    captainId  = CaptainId.New;
+                    await commandBus.PublishAsync(new CreateCaptain(captainId), CancellationToken.None)
+                        .ConfigureAwait(false);
+
+                    await commandBus.PublishAsync(new HireWizard(captainId,new Wizard()), CancellationToken.None)
+                        .ConfigureAwait(false);
                     
+                    var captains = await queryProcessor.ProcessAsync(new GetAllCaptainQuery(), CancellationToken.None).ConfigureAwait(false);
+
+                    System.Console.WriteLine("------------------------");
+                    foreach (var captain in captains)
+                    {
+                        System.Console.WriteLine($"ID: {captain.captainId}, warr: {captain.warriors}, wiz: {captain.wizards}");
+                    }                   
+                    System.Console.WriteLine("------------------------");
                 }
         }
 

@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using EventFlow.Aggregates;
 using EventFlow.Exceptions;
-using HRSaga.Adventure.Context.Common.Domain.Model;
 using HRSaga.Adventure.Context.OverTheRealm.Domain.Model.Captains.Events;
 using Stateless;
 
@@ -14,14 +13,12 @@ namespace HRSaga.Adventure.Context.OverTheRealm.Domain.Model.Captains
     {
         private List<ICharacter> _squad { get; set; }
         
-        public Captain(CaptainId captainId):base(captainId){
-            //stateSetup(State.OverTheRealm);
-            //AssertionConcern.AssertArgumentNotNull(captainId,"CaptainId null");
-            _squad=new List<ICharacter>();
-            //Emit(new CaptainCreated());
+        public Captain(CaptainId captainId):base(captainId){}
+
+        public  void initCaptain(){
+            Emit(new CaptainCreated(new List<ICharacter>()));
         }
 
-         
         public void hire(Warrior warrior){
             if(isSquadFull()){
                 throw DomainError.With("Squad is full");
@@ -41,7 +38,7 @@ namespace HRSaga.Adventure.Context.OverTheRealm.Domain.Model.Captains
 
         void IEmit<CaptainCreated>.Apply(CaptainCreated aggregateEvent)
         {
-            _squad = new List<ICharacter>();
+            _squad=aggregateEvent.Squad;
         }
 
         public void Apply(WarriorHired aggregateEvent)

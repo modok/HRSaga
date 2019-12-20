@@ -9,10 +9,12 @@ namespace HRSaga.Adventure.Context.OverTheRealm.Domain.Model.Captains.ReadModels
         IAmReadModelFor<Captain, CaptainId, WarriorHired>,
         IAmReadModelFor<Captain, CaptainId, WizardHired>
     {
+        public CaptainId captainId {get; private set;}
         public int warriors {get; private set;}
         public int wizards {get; private set;}
-        public void Apply(IReadModelContext context, EventFlow.Aggregates.IDomainEvent<Captain, CaptainId, CaptainCreated> domainEvent)
+        public void Apply(IReadModelContext context, IDomainEvent<Captain, CaptainId, CaptainCreated> domainEvent)
         {
+            captainId = domainEvent.AggregateIdentity;
             warriors = 0;
             wizards = 0;
         }

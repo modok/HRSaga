@@ -10,8 +10,7 @@ namespace HRSaga.Adventure.Context.OverTheRealm.Domain.Model.Captains.Handlers
     {
         public override Task ExecuteAsync(Captain aggregate, CreateCaptain command, CancellationToken cancellationToken)
         {
-            
-             //aggregate.SetMagicNumber(command.MagicNumber);
+             aggregate.initCaptain();
             return Task.FromResult(0);
         }
     }
