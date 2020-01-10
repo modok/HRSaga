@@ -5,11 +5,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Adventure", "Adventure\Adve
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdventureTest", "AdventureTest\AdventureTest.csproj", "{D3EFC63F-CA3B-4BC9-BFAB-B1BDDFD6CD79}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CQRSlite", "CQRSlite\CQRSlite.csproj", "{D3BD0703-5D13-49D5-8A8E-AB6ACD9715EE}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Console", "Console\Console.csproj", "{611E5DB2-8A07-48C9-B29E-659FF1B27F87}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CQRSWeb", "CQRSWeb\CQRSWeb.csproj", "{D048E909-3519-4267-89D5-9B2F95F96AA8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdventureAPI", "AdventureAPI\AdventureAPI.csproj", "{BBE24A96-A2CB-4BDE-917C-E4B53B6AC1CA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +37,10 @@ Global
 		{D048E909-3519-4267-89D5-9B2F95F96AA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D048E909-3519-4267-89D5-9B2F95F96AA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D048E909-3519-4267-89D5-9B2F95F96AA8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BBE24A96-A2CB-4BDE-917C-E4B53B6AC1CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BBE24A96-A2CB-4BDE-917C-E4B53B6AC1CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BBE24A96-A2CB-4BDE-917C-E4B53B6AC1CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BBE24A96-A2CB-4BDE-917C-E4B53B6AC1CA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		Policies = $0

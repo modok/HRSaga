@@ -7,8 +7,8 @@ using HRSaga.Adventure.Context.OverTheRealm.Domain.Model.Captains;
 using HRSaga.Adventure.Context.OverTheRealm.Domain.Model.Captains.Commands;
 using HRSaga.Adventure.Context.OverTheRealm.Domain.Model.Captains.Events;
 using HRSaga.Adventure.Context.OverTheRealm.Domain.Model.Captains.Handlers;
-using HRSaga.Adventure.Context.OverTheRealm.Domain.Model.Captains.Queries;
-using HRSaga.Adventure.Context.OverTheRealm.Domain.Model.Captains.ReadModels;
+using HRSaga.Adventure.Context.OverTheRealm.Read.Model.Captains;
+using HRSaga.Adventure.Context.OverTheRealm.Read.Model.Captains.Queries;
 
 namespace HRSaga.Console
 {

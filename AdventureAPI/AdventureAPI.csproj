@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Adventure\Adventure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="EventFlow.AspNetCore" Version="0.77.4077" />
+    <PackageReference Include="Eventflow.DependencyInjection" Version="0.77.4077" />
+  </ItemGroup>
+
+</Project>

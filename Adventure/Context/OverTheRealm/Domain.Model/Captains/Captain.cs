@@ -36,7 +36,11 @@ namespace HRSaga.Adventure.Context.OverTheRealm.Domain.Model.Captains
             return (_squad.Count == 5);
         }
 
-        void IEmit<CaptainCreated>.Apply(CaptainCreated aggregateEvent)
+        public int squadSize(){
+            return _squad.Count;
+        }
+
+        public void Apply(CaptainCreated aggregateEvent)
         {
             _squad=aggregateEvent.Squad;
         }
